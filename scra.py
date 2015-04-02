@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import urllib2
+import sys
 from bs4 import BeautifulSoup
 import os
 import json
@@ -23,7 +24,10 @@ def main():
     for j in table2.find_all('a'):
         url = 'http://www.taxiautofare.com/' + j.get('href')
         print url
-        arr.append( scrape(url) )
+        try:
+            arr.append( scrape(url) )
+        except:
+            print "Could not access this fare"
 
 
     with open("/home/sauravtom/public_html/autotaxi.txt", "w") as f:
@@ -44,20 +48,20 @@ def scrape(url='http://www.taxiautofare.com/taxi-fare-card/Chandigarh-Auto-fare'
         dict['waiting_charges'] = metadata.findNext('table').find('span',{'id' : 'MC_lblWaitingCharges'}).get_text()
         #dict['night_booking_fee'] = metadata.findNext('table').find('span',{'id' : 'MC_lblNightBookingFee'}).get_text()[2:4]
         #dict['night_gen_fare'] = metadata.findNext('table').find('span',{'id' : 'MC_lblNightExtraFare'}).get_text()
-        
+
         x = dict['operator']
         #Delhi Mega cabs fare breakup -> mega Cabs
         dict['operator'] = ' '.join( x.split(' ')[1:-2] )
         dict['city'] = ''.join( x.split(' ')[0] )
-        
+
         a = dict['waiting_charges']
         dict['waiting_charges'] =  a[a.find('s')+1:a.find('.')]
-        
 
-        return dict        
+
+        return dict
 
 
 if __name__ == '__main__':
-    main()	
+    main()
     #print scrape()
 
