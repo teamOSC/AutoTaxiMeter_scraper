@@ -41,10 +41,10 @@ def scrape(url='http://www.taxiautofare.com/taxi-fare-card/Chandigarh-Auto-fare'
         dict['operator'] = metadata.get_text()
         dict['booking_fee'] = metadata.findNext('table').find('span',{'id' : 'MC_lblBookingFee'}).get_text()[2:4]
 
-        dict['min_fare_forfirst_X_km'] = metadata.findNext('table').find('span',{'id' : 'MC_lblMinimumFare'}).get_text().split(' ')[0][2:]
-        dict['X'] = metadata.findNext('table').find('span',{'id' : 'MC_lblMinimumFare'}).get_text().split(' ')[-1][0]
+        dict['min_fare'] = metadata.findNext('table').find('span',{'id' : 'MC_lblMinimumFare'}).get_text().split(' ')[0][2:]
+        dict['min_dist'] = metadata.findNext('table').find('span',{'id' : 'MC_lblMinimumFare'}).get_text().split(' ')[-1][0]
 
-        dict['gen_fare_perkm'] = metadata.findNext('table').find('span',{'id' : 'MC_lblFarePerUnitDistance'}).get_text()[2:4]
+        dict['fare_per_km'] = metadata.findNext('table').find('span',{'id' : 'MC_lblFarePerUnitDistance'}).get_text()[2:4]
         dict['waiting_charges'] = metadata.findNext('table').find('span',{'id' : 'MC_lblWaitingCharges'}).get_text()
         #dict['night_booking_fee'] = metadata.findNext('table').find('span',{'id' : 'MC_lblNightBookingFee'}).get_text()[2:4]
         #dict['night_gen_fare'] = metadata.findNext('table').find('span',{'id' : 'MC_lblNightExtraFare'}).get_text()
