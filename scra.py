@@ -30,7 +30,7 @@ def main():
             print "Could not access this fare"
 
 
-    with open("/home/sauravtom/public_html/autotaxi.txt", "w") as f:
+    with open("./autotaxi.txt", "w") as f:
         f.write(json.dumps(arr))
 
 def scrape(url='http://www.taxiautofare.com/taxi-fare-card/Chandigarh-Auto-fare'):
